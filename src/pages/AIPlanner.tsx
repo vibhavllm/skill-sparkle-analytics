@@ -235,8 +235,9 @@ const AIPlanner = () => {
     }
   };
 
-  const todayTasks = tasks.filter(t => !t.completed && new Date(t.dueDate).getDate() === new Date().getDate());
-  const upcomingTasks = tasks.filter(t => !t.completed && new Date(t.dueDate) > new Date());
+  const todayStr = new Date().toISOString().split('T')[0];
+  const todayTasks = tasks.filter(t => !t.completed && t.dueDate === todayStr);
+  const upcomingTasks = tasks.filter(t => !t.completed && t.dueDate > todayStr);
   const completedTasks = tasks.filter(t => t.completed);
 
   return (
@@ -280,7 +281,7 @@ const AIPlanner = () => {
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">
-              {tasks.filter(t => t.completed && new Date(t.dueDate).getDate() === new Date().getDate()).length}
+              {tasks.filter(t => t.completed && t.dueDate === new Date().toISOString().split('T')[0]).length}
             </div>
             <p className="text-xs text-success flex items-center gap-1 mt-1">
               <CheckCircle2 className="h-3 w-3" />

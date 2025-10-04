@@ -11,6 +11,8 @@ import Badges from "./pages/Badges";
 import Leaderboard from "./pages/Leaderboard";
 import Communities from "./pages/Communities";
 import TopicMastery from "./pages/TopicMastery";
+import Exams from "./pages/Exams";
+import AIPlanner from "./pages/AIPlanner";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +32,8 @@ const App = () => (
               <Route path="/leaderboard" element={<Leaderboard />} />
               <Route path="/communities" element={<Communities />} />
               <Route path="/mastery" element={<TopicMastery />} />
+              <Route path="/exams" element={<Exams />} />
+              <Route path="/planner" element={<AIPlanner />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </AppLayout>

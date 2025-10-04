@@ -5,6 +5,8 @@ import {
   Users,
   Brain,
   Sparkles,
+  FileText,
+  ListTodo,
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import {
@@ -22,6 +24,8 @@ import {
 const menuItems = [
   { title: "Dashboard", url: "/", icon: LayoutDashboard },
   { title: "SkillBeacon", url: "/skillbeacon", icon: Sparkles },
+  { title: "Exams & Assignments", url: "/exams", icon: FileText },
+  { title: "AI Planner", url: "/planner", icon: ListTodo },
   { title: "Badges", url: "/badges", icon: Award },
   { title: "Leaderboard", url: "/leaderboard", icon: Trophy },
   { title: "Communities", url: "/communities", icon: Users },

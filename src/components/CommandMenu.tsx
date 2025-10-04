@@ -9,11 +9,13 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import { Button } from "@/components/ui/button";
-import { Search, LayoutDashboard, Award, Trophy, Users, Brain, Sparkles } from "lucide-react";
+import { Search, LayoutDashboard, Award, Trophy, Users, Brain, Sparkles, FileText, ListTodo } from "lucide-react";
 
 const pages = [
   { name: "Dashboard", path: "/", icon: LayoutDashboard },
   { name: "SkillBeacon Portfolio", path: "/skillbeacon", icon: Sparkles },
+  { name: "Exams & Assignments", path: "/exams", icon: FileText },
+  { name: "AI Planner & To-Do", path: "/planner", icon: ListTodo },
   { name: "Badges & Achievements", path: "/badges", icon: Award },
   { name: "Leaderboard", path: "/leaderboard", icon: Trophy },
   { name: "Communities", path: "/communities", icon: Users },

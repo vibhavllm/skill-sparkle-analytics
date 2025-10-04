@@ -2,7 +2,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { Share2, Download, Linkedin, Award, Code, Database, Cloud, Brain } from "lucide-react";
+import { Share2, Download, Award, Code, Database, Cloud, Brain, Users } from "lucide-react";
+import { LinkedInExportDialog } from "@/components/LinkedInExportDialog";
 import { toast } from "sonner";
 
 const SkillBeacon = () => {
@@ -38,10 +39,7 @@ const SkillBeacon = () => {
           <p className="text-muted-foreground mt-2">Your verified learning journey</p>
         </div>
         <div className="flex gap-2">
-          <Button onClick={handleLinkedInExport} className="bg-primary hover:bg-primary/90">
-            <Linkedin className="mr-2 h-4 w-4" />
-            Export to LinkedIn
-          </Button>
+          <LinkedInExportDialog />
           <Button onClick={handleDownload} variant="outline">
             <Download className="mr-2 h-4 w-4" />
             Download PDF
@@ -169,6 +167,44 @@ const SkillBeacon = () => {
           <div className="flex items-center justify-between p-3 bg-background rounded-lg">
             <span className="font-medium">Cloud Solutions Architect</span>
             <Badge className="bg-warning text-warning-foreground">72% Match</Badge>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Community Recommendations */}
+      <Card className="border-accent/20 bg-gradient-purple-bg">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Users className="h-5 w-5 text-accent" />
+            Recommended Communities
+          </CardTitle>
+          <CardDescription>Based on your skills and interests</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid gap-4 md:grid-cols-2">
+            {[
+              { name: "Database Masters", match: 95, members: 1523, reason: "Your Database Management expertise" },
+              { name: "ML & AI Researchers", match: 88, members: 3241, reason: "Your Machine Learning progress" },
+            ].map((community, idx) => (
+              <div key={idx} className="p-4 rounded-lg bg-background border border-accent/20 hover:shadow-card transition-all cursor-pointer"
+                onClick={() => toast.success(`Joining ${community.name}...`)}
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex-1">
+                    <h4 className="font-semibold">{community.name}</h4>
+                    <p className="text-sm text-muted-foreground mt-1">{community.reason}</p>
+                    <p className="text-xs text-muted-foreground mt-2">{community.members} members</p>
+                  </div>
+                  <Badge className="bg-accent text-accent-foreground">{community.match}% match</Badge>
+                </div>
+                <Button size="sm" className="w-full mt-3 bg-accent hover:bg-accent/90" onClick={(e) => {
+                  e.stopPropagation();
+                  toast.success(`Joined ${community.name}!`);
+                }}>
+                  Join Community
+                </Button>
+              </div>
+            ))}
           </div>
         </CardContent>
       </Card>

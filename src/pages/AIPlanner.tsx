@@ -28,17 +28,72 @@ const AIPlanner = () => {
   const [tasks, setTasks] = useState([
     {
       id: "1",
-      title: "Complete Sorting Algorithm Assignment",
-      description: "Implement merge sort and quick sort with complexity analysis",
+      title: "Complete Data Structures Mid-term Prep",
+      description: "Review binary trees, heaps, and graph algorithms",
       priority: "High",
-      dueDate: "2025-10-10",
-      category: "Assignment",
+      dueDate: new Date().toISOString().split('T')[0],
+      category: "Study",
       course: "Advanced Data Structures",
       completed: false,
       aiGenerated: true,
     },
     {
       id: "2",
+      title: "Submit Machine Learning Assignment 3",
+      description: "Complete neural network training and submit report",
+      priority: "High",
+      dueDate: new Date().toISOString().split('T')[0],
+      category: "Assignment",
+      course: "ML Fundamentals",
+      completed: false,
+      aiGenerated: true,
+    },
+    {
+      id: "3",
+      title: "Attend Algorithm Study Group",
+      description: "Group session on dynamic programming patterns",
+      priority: "Medium",
+      dueDate: new Date().toISOString().split('T')[0],
+      category: "Study",
+      course: "Advanced Data Structures",
+      completed: false,
+      aiGenerated: false,
+    },
+    {
+      id: "4",
+      title: "Review Database Indexing Concepts",
+      description: "Prepare for tomorrow's quiz on B-trees and indexing",
+      priority: "High",
+      dueDate: new Date().toISOString().split('T')[0],
+      category: "Study",
+      course: "Database Management",
+      completed: false,
+      aiGenerated: true,
+    },
+    {
+      id: "5",
+      title: "Work on E-commerce Platform MVP",
+      description: "Implement user authentication module",
+      priority: "Medium",
+      dueDate: new Date().toISOString().split('T')[0],
+      category: "Project",
+      course: "Personal Project",
+      completed: false,
+      aiGenerated: false,
+    },
+    {
+      id: "6",
+      title: "Practice Sorting Algorithm Problems",
+      description: "Complete LeetCode exercises on merge and quick sort",
+      priority: "Low",
+      dueDate: new Date().toISOString().split('T')[0],
+      category: "Practice",
+      course: "Self Study",
+      completed: true,
+      aiGenerated: true,
+    },
+    {
+      id: "7",
       title: "Review Graph Algorithms",
       description: "Study Dijkstra's and Bellman-Ford algorithms",
       priority: "Medium",
@@ -49,18 +104,7 @@ const AIPlanner = () => {
       aiGenerated: true,
     },
     {
-      id: "3",
-      title: "Practice Neural Network Training",
-      description: "Complete TensorFlow lab exercises",
-      priority: "High",
-      dueDate: "2025-10-11",
-      category: "Lab",
-      course: "ML Fundamentals",
-      completed: true,
-      aiGenerated: false,
-    },
-    {
-      id: "4",
+      id: "8",
       title: "Database Query Optimization",
       description: "Optimize slow queries from assignment feedback",
       priority: "Medium",
@@ -148,15 +192,16 @@ const AIPlanner = () => {
     }, 1500);
   };
 
-  const handleAddTask = () => {
-    if (!newTask.trim()) return;
+  const handleAddTask = (customTitle?: string) => {
+    const taskTitle = customTitle || newTask;
+    if (!taskTitle.trim()) return;
     
     const task = {
       id: Date.now().toString(),
-      title: newTask,
+      title: taskTitle,
       description: "",
       priority: "Medium",
-      dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+      dueDate: new Date().toISOString().split('T')[0], // Set to today
       category: "Task",
       course: "General",
       completed: false,
@@ -165,7 +210,7 @@ const AIPlanner = () => {
     
     setTasks([...tasks, task]);
     setNewTask("");
-    toast.success("Task added successfully!");
+    toast.success("Task added to Today! ✨");
   };
 
   const getPriorityColor = (priority: string) => {
@@ -269,6 +314,46 @@ const AIPlanner = () => {
         </Card>
       </div>
 
+      {/* AI Today's Summary */}
+      <Card className="border-accent/20 bg-gradient-to-br from-accent/10 via-accent/5 to-transparent">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Sparkles className="h-5 w-5 text-accent" />
+            Today's AI Summary
+          </CardTitle>
+          <CardDescription>Your personalized focus areas for today</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="p-4 rounded-lg bg-background/80 backdrop-blur border border-accent/20">
+            <h4 className="font-semibold mb-2 flex items-center gap-2">
+              <Target className="h-4 w-4 text-accent" />
+              Priority Focus
+            </h4>
+            <p className="text-sm text-muted-foreground">
+              You have <strong>2 high-priority assignments</strong> due today. Start with the ML Assignment as it aligns with your upcoming exam on neural networks.
+            </p>
+          </div>
+          <div className="p-4 rounded-lg bg-background/80 backdrop-blur border border-primary/20">
+            <h4 className="font-semibold mb-2 flex items-center gap-2">
+              <TrendingUp className="h-4 w-4 text-primary" />
+              Study Recommendation
+            </h4>
+            <p className="text-sm text-muted-foreground">
+              Based on your recent performance, spend 90 minutes on Database Indexing concepts. Your last quiz showed gaps in B-tree understanding.
+            </p>
+          </div>
+          <div className="p-4 rounded-lg bg-background/80 backdrop-blur border border-success/20">
+            <h4 className="font-semibold mb-2 flex items-center gap-2">
+              <CheckCircle2 className="h-4 w-4 text-success" />
+              Quick Win
+            </h4>
+            <p className="text-sm text-muted-foreground">
+              You're 85% through your E-commerce MVP. Completing the authentication module today will unlock project milestone badge!
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* AI Suggestions */}
       <Card className="border-accent/20 bg-accent/5">
         <CardHeader>
@@ -308,7 +393,7 @@ const AIPlanner = () => {
               onKeyPress={(e) => e.key === 'Enter' && handleAddTask()}
               className="flex-1"
             />
-            <Button onClick={handleAddTask} className="bg-primary hover:bg-primary/90">
+            <Button onClick={() => handleAddTask()} className="bg-primary hover:bg-primary/90">
               <Plus className="h-4 w-4 mr-2" />
               Add Task
             </Button>
@@ -437,9 +522,7 @@ const AIPlanner = () => {
 
         <TabsContent value="projects" className="mt-6 space-y-4">
           {projects.map((project) => (
-            <Card key={project.id} className="hover:shadow-glow transition-all cursor-pointer"
-              onClick={() => toast.success(`Opening project: ${project.name}`)}
-            >
+            <Card key={project.id} className="hover:shadow-glow transition-all">
               <CardContent className="p-6">
                 <div className="flex items-start gap-4">
                   <div className="p-3 rounded-lg bg-primary/10">
@@ -475,6 +558,29 @@ const AIPlanner = () => {
                             <span className="font-medium">{project.progress}%</span>
                           </div>
                           <Progress value={project.progress} className="h-2" />
+                        </div>
+                        <div className="mt-4 flex gap-2">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              toast.success(`Opening project: ${project.name}`);
+                            }}
+                          >
+                            <FolderKanban className="h-4 w-4 mr-2" />
+                            View Details
+                          </Button>
+                          <Button
+                            size="sm"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleAddTask(`Work on ${project.name}`);
+                            }}
+                          >
+                            <Plus className="h-4 w-4 mr-2" />
+                            Add Task
+                          </Button>
                         </div>
                       </div>
                     </div>
